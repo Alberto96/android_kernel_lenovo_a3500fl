@@ -35,6 +35,10 @@ static int s_fake_read;
 
 module_param_named(fake_read, s_fake_read, int, 0660);
 
+#ifndef CONFIG_LOGCAT_SIZE
+#define CONFIG_LOGCAT_SIZE 256
+#endif
+
 /*
  * struct logger_log - represents a specific log, such as 'main' or 'radio'
  *
@@ -821,11 +825,10 @@ static struct logger_log VAR = { \
 	.size = SIZE, \
 };
 
-
-DEFINE_LOGGER_DEVICE(log_main, LOGGER_LOG_MAIN, __MAIN_BUF_SIZE)
-DEFINE_LOGGER_DEVICE(log_events, LOGGER_LOG_EVENTS, __EVENTS_BUF_SIZE)
-DEFINE_LOGGER_DEVICE(log_radio, LOGGER_LOG_RADIO, __RADIO_BUF_SIZE)
-DEFINE_LOGGER_DEVICE(log_system, LOGGER_LOG_SYSTEM, __SYSTEM_BUF_SIZE)
+DEFINE_LOGGER_DEVICE(log_main, LOGGER_LOG_MAIN, CONFIG_LOGCAT_SIZE*1024)
+DEFINE_LOGGER_DEVICE(log_events, LOGGER_LOG_EVENTS, CONFIG_LOGCAT_SIZE*1024)
+DEFINE_LOGGER_DEVICE(log_radio, LOGGER_LOG_RADIO, CONFIG_LOGCAT_SIZE*1024)
+DEFINE_LOGGER_DEVICE(log_system, LOGGER_LOG_SYSTEM, CONFIG_LOGCAT_SIZE*1024)
 
 static struct logger_log *get_log_from_minor(int minor)
 {

@@ -135,7 +135,7 @@ enum rq_flag_bits {
 				 * throttling rules. Don't do it again. */
 
 	/* request only flags */
-	__REQ_SORTED,		/* elevator knows about this request */
+	__REQ_SORTED = __REQ_RAHEAD, /* elevator knows about this request */
 	__REQ_SOFTBARRIER,	/* may not be passed by ioscheduler */
 	__REQ_NOMERGE,		/* don't touch this for merging */
 	__REQ_STARTED,		/* drive already may have started this one */
@@ -151,6 +151,8 @@ enum rq_flag_bits {
 	__REQ_IO_STAT,		/* account I/O stat */
 	__REQ_MIXED_MERGE,	/* merge of different types, fail separately */
 	__REQ_TOI,		/* TuxOnIce I/O */
+	__REQ_URGENT,		/* urgent request */
+	__REQ_PM,		/* runtime pm request */
 	__REQ_NR_BITS,		/* stops here */
 };
 
@@ -162,6 +164,7 @@ enum rq_flag_bits {
 #define REQ_META		(1 << __REQ_META)
 #define REQ_PRIO		(1 << __REQ_PRIO)
 #define REQ_DISCARD		(1 << __REQ_DISCARD)
+#define REQ_URGENT		(1 << __REQ_URGENT)
 #define REQ_NOIDLE		(1 << __REQ_NOIDLE)
 
 #define REQ_FAILFAST_MASK \
@@ -194,5 +197,6 @@ enum rq_flag_bits {
 #define REQ_SECURE		(1 << __REQ_SECURE)
 #define REQ_TOI			(1 << __REQ_TOI)
 #define REQ_ON_PLUG		(1 << __REQ_ON_PLUG)
+#define REQ_PM                 (1 << __REQ_PM)
 
 #endif /* __LINUX_BLK_TYPES_H */
