@@ -141,3 +141,4 @@ usr/gen_init_cpio
 usr/initramfs_data.cpio
 
 .git/
+/status
